@@ -2,7 +2,7 @@
 # ShopingList
 - Python
 - ShopingList
-- Anroid - shopinglist-0.1-armeabi-v7a-debug.apk
+- Android - shopinglist-0.1-armeabi-v7a-debug.apk
 - ********
 ![photo5287549807818290197](https://user-images.githubusercontent.com/25771381/131267000-b795ef34-958e-498e-a784-2943c8716ab4.jpg)
 ![photo5287549807818290198](https://user-images.githubusercontent.com/25771381/131267001-ef669c5a-0a56-43e0-abcd-b10ed58fe464.jpg)

@@ -1,0 +1,336 @@
+ScreenManager:
+    id: screen_manager
+    Mainscreen:
+    ListGoodsBuyNow:
+    AddGoodsBuyNow:
+    BaseGoodsAdd:
+    BaseClearAll:
+    Password:
+
+
+<Title@Label>
+    background_normal:''
+    size_hint_y: .5
+    color:.99,.27,.27,1
+    # font_size: 40
+    font_size: self.height/3
+    size: self.texture_size #это свойство для импута низя!!!
+    text_size: self.width - dp(10), None
+    halign: 'center'
+    valign: 'middle'
+
+<MainButtonScreen@Button>
+    background_normal: ''
+    background_color: 0.1, 0.5, 0.6, 1
+    # canvas.before:
+    #     Color:
+    #         rgba: .23,.69,.66,1
+    #     Rectangle:
+    #         pos: self.pos
+    #         size: self.size
+    color: .2,.22,.42,1
+    background_normal: ''
+    background_color: .36,.86,.58, 1
+    outline_color: .94,.92,.84,1
+    size_hint_y: .35
+    font_size: self.height/3.5
+    size: self.texture_size #это свойство для импута низя!!!
+    text_size: self.width - dp(10), None
+    halign: 'center'
+    valign: 'middle'
+
+<ReturnButton@Button>
+    text: '< Назад в главное меню'
+    size_hint_y: .25
+    font_size: self.height/3.5
+    size: self.texture_size
+    text_size: self.width - dp(15), None
+    halign: 'center'
+    valign: 'middle'
+    on_release: app.root.current = "Mainscreen"
+
+# <ClearAllButton@Button>
+#     text: 'Clear All'
+#     size_hint_y: .3
+    # on_release: app.root.current = "Mainscreen"
+
+# карусель
+<ScreenManagement>:
+
+    # id s айди всего kv.файла - для передачи в main.py
+    goods_input: goods_input
+    last_add_goods: last_add_goods
+    password_del_baze: password_del_baze
+    inf_lbl_del_baze: inf_lbl_del_baze
+    goods_list_plus:goods_list_plus
+    goods_buy_now_list:goods_buy_now_list
+    zzzzzz: zzzzzz
+    # all_base_list:all_base_list
+
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: .95,.82,.31,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # первый экран стартовый
+    Mainscreen:
+        id: main_screen
+        name: 'Mainscreen'
+        manager: 'screen_manager'
+        FloatLayout:
+            BoxLayout:
+                padding: 50
+                orientation: 'vertical'
+                spacing: 25
+                Title:
+                    text:'Shopping List'
+                MainButtonScreen:
+                    text: 'Buy Now'
+                    on_release: app.root.current = 'ListGoodsBuyNow'
+                MainButtonScreen:
+                    text: 'Add to Buy Now'
+                    on_release: app.root.current = "AddGoodsBuyNow"
+                MainButtonScreen:
+                    text: 'Add to shopping base'
+                    on_release: app.root.current = "BaseGoodsAdd"
+    # 2й экран лист текущих покупок
+    ListGoodsBuyNow:
+        id: listgoodsbuynow
+        name: 'ListGoodsBuyNow'
+        manager: 'screen_manager'
+        goods_buy_now_list:goods_buy_now_list
+        FloatLayout:
+            BoxLayout:
+                padding: 15
+                orientation: 'vertical'
+                spacing: 10
+                ReturnButton:
+                    size_hint_y: .15
+                # 
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    ScrollView:
+                        # spacing:40
+                        # size_hint: 1, 1
+                        # bar_width: 5
+                        # do_scroll_x: False
+                        do_scroll_y: True
+                        scroll_type: ['content']
+                        GridLayout:
+                            id: goods_buy_now_list
+                            size_hint_y: None
+                            height: self.minimum_height
+                            cols:2
+                            # minimum_height: self.height
+                            spacing:15
+                # Отключил
+                # Button:
+                #     text: 'Clear Buy Now All '
+                #     size_hint_y: .3
+                    # on_release: app.root.current = "Mainscreen"
+
+    # 3й лист  добавить товары в лист текущих покупок
+    AddGoodsBuyNow:
+        id: AddGoodsBuyNow
+        name: 'AddGoodsBuyNow'
+        manager: 'screen_manager'
+        goods_list_plus:goods_list_plus
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 15
+            spacing: 5
+
+            ReturnButton:
+                size_hint_y:.2
+                 # on_release: app.root.current = "SignupScreen"
+            Title:
+                size_hint_y:.2
+                text:'Add Goods to Buy Now'
+            # список из которого добавим в текущие покупки
+            ScrollView:
+                spacing:15
+                # size_hint: 1, 1
+                # bar_width: 5
+                # do_scroll_x: False
+                do_scroll_y: True
+                scroll_type: ['content']
+                GridLayout:
+                    id: goods_list_plus
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols:2
+                    # minimum_height: self.height
+                    spacing:40
+
+            # BoxLayout:
+            #     padding: 10,10,10,10
+            #     size_hint_y: .20
+            #     orientation: 'horizontal'
+            #     Label:
+            #         text: 'Тут будет список'
+            #     Button:
+            #         text: '+'
+            #         size_hint_x: 0.25
+            # -------------------------------------
+            # BoxLayout:
+            MainButtonScreen:
+                size_hint_y:.2
+                text: 'Add to base!'
+                on_release: app.root.current = "BaseGoodsAdd"
+
+    # 4й экран наполнять базу
+    BaseGoodsAdd:
+        # all_base_list:all_base_list
+        zzzzzz: zzzzzz
+        goods_input: goods_input
+        last_add_goods: last_add_goods
+        password_del_baze: password_del_baze
+        inf_lbl_del_baze: inf_lbl_del_baze
+        goods_list_plus:goods_list_plus
+        goods_buy_now_list:goods_buy_now_list
+
+        id: basegoodsadd
+        name: 'BaseGoodsAdd'
+        manager: 'screen_manager'
+
+        BoxLayout:
+            padding: 15
+            # size_hint_y: .35
+            orientation: 'vertical'
+            spacing: 5
+            ReturnButton:
+                size_hint_y:.2
+            # 
+            TextInput:
+                id: goods_input
+                # text:''
+                # hint_text:"Название покупки"
+                multiline: False
+                size_hint_y: .20
+                font_size: self.height/2
+
+            Button:
+                text:'Добавить товар'
+                size_hint_y: .20
+                font_size: self.height/3
+                size: self.texture_size #это свойство для импута низя!!!
+                text_size: self.width - dp(5), None
+                halign: 'center'
+                valign: 'middle'
+                on_release: app.root.buttonClicked()
+            Label:
+                id: last_add_goods
+                # background_normal: None
+                text:''
+                size_hint_y: .20
+            # ========================
+            # ScrollView:
+            #     size_hint: 1, 1
+            #     # bar_width: 5
+            #     do_scroll_x: False
+            #     do_scroll_y: True
+            #     scroll_type: ['content']
+            #     GridLayout:
+            #         size_hint_y: None
+            #         size_hint_x: 1
+            #         cols: 1
+            #         # height: self.texture_size[1]
+            #         height: self.minimum_height
+            #         Label:
+            #             text: 'You are learning Kivy ******'
+            #             font_size: 25
+            #             text_size: self.width, None
+            #             size_hint_y: None
+            #             # height: self.texture_size[1]
+            #         Label:
+            #             text: 'You are learning Kivy ******'
+            #             font_size: 25
+            #             text_size: self.width, None
+            #             size_hint_y: None
+            #         Label:
+            #             text: 'You are learning Kivy ******'
+            #             font_size: 25
+            #             text_size: self.width, None
+            #             size_hint_y: None
+            #         Label:
+            #             text: 'You are learning Kivy ******'
+            #             font_size: 25
+            #             text_size: self.width, None
+            #             size_hint_y: None
+            #  +++++++++++++++++++++++++++++++++++
+            ScrollView:
+                # spacing:50
+                # size_hint: 1, 1
+                # bar_width: 5
+                # do_scroll_x: False
+                do_scroll_y: True
+                scroll_type: ['content']
+                GridLayout:
+                    id: zzzzzz
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols:2
+                    # minimum_height: self.height
+                    spacing:40
+                    # size_hint_y: 1.5
+                    # size_hint_x: 1
+                    # height: self.minimum_height
+                    # goods goods goods goods
+
+            Button:
+                text: 'Clear All Base ???'
+                size_hint_y: .15
+                font_size: self.height/3
+                size: self.texture_size #это свойство для импута низя!!!
+                text_size: self.width - dp(5), None
+                halign: 'center'
+                valign: 'middle'
+                on_release: app.root.current = "BaseClearAll"
+
+    # 5й экран - удалить базу полностью!!!!
+    BaseClearAll:
+        id: baseclearall
+        name: 'BaseClearAll'
+        manager: 'screen_manager'
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 15
+            spacing: 5
+
+            ReturnButton:
+                on_release: password_del_baze.text = ""
+            Title:
+                text:'Введите пароль !!!'
+            TextInput:
+                id: password_del_baze
+                # text:''
+                # hint_text:"Название покупки"
+                multiline: False
+                size_hint_y: .25
+                font_size: self.height/2
+            Label:
+                id: inf_lbl_del_baze
+                text: ''
+            Button:
+                text: 'Удалить'
+                on_release: app.root.clear_btn_all_goods()
+    # Password:
+    #     id: password
+    #     name: 'Password'
+    #     manager: 'screen_manager'
+    #     ReturnButton:
+    #              # on_release: app.root.current = "SignupScreen"
+    #     Title:
+    #         text:'Введите пароль !!!'
+    #     TextInput:
+    #         id: password_del_baze
+    #         # text:''
+    #         # hint_text:"Название покупки"
+    #         multiline: False
+    #         size_hint_y: .25
+    #         font_size: self.height/2
